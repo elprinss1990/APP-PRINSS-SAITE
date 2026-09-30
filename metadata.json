@@ -1,0 +1,6 @@
+{
+  "name": "PRINSS FUT",
+  "description": "Premium EA SPORTS FC 27 inspired gaming-commerce experience for FC 27 coins, rivals, FUT champions, SBC services, and gaming cards.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
