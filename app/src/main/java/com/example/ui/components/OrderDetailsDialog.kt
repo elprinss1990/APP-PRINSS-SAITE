@@ -1,5 +1,6 @@
 package com.example.ui.components
 
+import com.example.model.WHATSAPP_NUMBER
 import android.content.Intent
 import android.net.Uri
 import androidx.compose.foundation.background
@@ -254,7 +255,7 @@ fun OrderDetailsDialog(
                 Button(
                     onClick = {
                         val message = "Hello PRINSS FUT Support, I need an update on my order ${order.orderNumber} for ${order.title} (${order.platform.displayName})."
-                        val url = "https://wa.me/201000000000?text=${Uri.encode(message)}"
+                        val url = "https://wa.me/$WHATSAPP_NUMBER?text=${Uri.encode(message)}"
                         val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
                         try {
                             context.startActivity(intent)
