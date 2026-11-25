@@ -77,3 +77,6 @@ data class PackPlayer(
     val physical: Int,
     val cardType: String = "TOTY"
 )
+
+/** Store WhatsApp number (international format, digits only) used by every order/support link. */
+const val WHATSAPP_NUMBER = "96566838043"

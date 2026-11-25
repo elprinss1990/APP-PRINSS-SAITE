@@ -1,5 +1,6 @@
 package com.example.ui.components
 
+import com.example.model.WHATSAPP_NUMBER
 import android.content.Intent
 import android.net.Uri
 import androidx.compose.foundation.background
@@ -218,7 +219,7 @@ fun PrinssFutDrawerContent(
                 .clip(RoundedCornerShape(12.dp))
                 .background(WhatsAppGreen)
                 .clickable {
-                    val url = "https://wa.me/201000000000?text=Hello%20PRINSS%20FUT%20Support!"
+                    val url = "https://wa.me/$WHATSAPP_NUMBER?text=Hello%20PRINSS%20FUT%20Support!"
                     try {
                         context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(url)))
                     } catch (e: Exception) {}

@@ -1,5 +1,6 @@
 package com.example.ui.components
 
+import com.example.model.WHATSAPP_NUMBER
 import android.content.Intent
 import android.net.Uri
 import androidx.compose.foundation.background
@@ -77,7 +78,6 @@ fun CheckoutDialog(
     var selectedMethod by remember { mutableStateOf("Comfort Trade") }
     var selectedPayment by remember { mutableStateOf("InstaPay / Vodafone Cash") }
     var eaEmail by remember { mutableStateOf("") }
-    var backupCode by remember { mutableStateOf("") }
     var gamerTag by remember { mutableStateOf("") }
     var isSubmitted by remember { mutableStateOf(false) }
 
@@ -240,27 +240,6 @@ fun CheckoutDialog(
                     singleLine = true
                 )
 
-                Spacer(modifier = Modifier.height(8.dp))
-
-                OutlinedTextField(
-                    value = backupCode,
-                    onValueChange = { backupCode = it },
-                    label = { Text("EA Backup Code / Security Code (Optional)") },
-                    colors = OutlinedTextFieldDefaults.colors(
-                        focusedBorderColor = FutCyan,
-                        unfocusedBorderColor = SurfaceDarkBorder,
-                        focusedTextColor = TextPrimary,
-                        unfocusedTextColor = TextPrimary,
-                        focusedLabelColor = FutCyan,
-                        unfocusedLabelColor = TextSecondary
-                    ),
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .testTag("checkout_backup_code_input"),
-                    shape = RoundedCornerShape(12.dp),
-                    singleLine = true
-                )
-
                 Spacer(modifier = Modifier.height(16.dp))
 
                 // Payment Method
@@ -316,43 +295,22 @@ fun CheckoutDialog(
 
                 Spacer(modifier = Modifier.height(20.dp))
 
-                // Place Order Button
-                Button(
-                    onClick = {
-                        val emailToUse = if (eaEmail.isBlank()) "customer@ea-fut.com" else eaEmail
-                        onOrderPlaced(selectedMethod, emailToUse, selectedPayment)
-                        onDismiss()
-                    },
-                    colors = ButtonDefaults.buttonColors(
-                        containerColor = FutGreen
-                    ),
-                    shape = RoundedCornerShape(14.dp),
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(50.dp)
-                        .testTag("checkout_confirm_order_button")
-                ) {
-                    Text(
-                        text = "🔒 Place Order & Pay (${numFormat.format(totalEgp.toInt())} EGP)",
-                        color = SurfaceDarkVoid,
-                        fontWeight = FontWeight.Black,
-                        fontSize = 15.sp
-                    )
-                }
-
-                Spacer(modifier = Modifier.height(10.dp))
-
-                // WhatsApp Instant ordering option
+                // Place Order: the app has no payment backend, so the order is sent to the
+                // store on WhatsApp and recorded locally as "Processing".
                 Button(
                     onClick = {
                         val msg = "Hello PRINSS FUT! I would like to place an order for:\n" +
                                 cartItems.joinToString("\n") { "• ${it.title} - ${it.totalPriceEgp.toInt()} EGP" } +
-                                "\nTotal: ${numFormat.format(totalEgp.toInt())} EGP\nMethod: $selectedMethod"
-                        val url = "https://wa.me/201000000000?text=${Uri.encode(msg)}"
+                                "\nTotal: ${numFormat.format(totalEgp.toInt())} EGP" +
+                                "\nTransfer method: $selectedMethod" +
+                                "\nPayment method: $selectedPayment" +
+                                (if (eaEmail.isNotBlank()) "\nEA email: $eaEmail" else "")
+                        val url = "https://wa.me/$WHATSAPP_NUMBER?text=${Uri.encode(msg)}"
                         try {
                             context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(url)))
+                            onOrderPlaced(selectedMethod, eaEmail.trim(), selectedPayment)
+                            onDismiss()
                         } catch (e: Exception) {}
-                        onDismiss()
                     },
                     colors = ButtonDefaults.buttonColors(
                         containerColor = WhatsAppGreen
@@ -360,21 +318,21 @@ fun CheckoutDialog(
                     shape = RoundedCornerShape(14.dp),
                     modifier = Modifier
                         .fillMaxWidth()
-                        .height(46.dp)
-                        .testTag("checkout_order_whatsapp_direct")
+                        .height(50.dp)
+                        .testTag("checkout_confirm_order_button")
                 ) {
                     Icon(
                         imageVector = Icons.Default.Send,
-                        contentDescription = "WhatsApp",
+                        contentDescription = null,
                         tint = Color.White,
                         modifier = Modifier.size(16.dp)
                     )
                     Spacer(modifier = Modifier.width(8.dp))
                     Text(
-                        text = "Order Directly via WhatsApp",
+                        text = "Send Order via WhatsApp (${numFormat.format(totalEgp.toInt())} EGP)",
                         color = Color.White,
-                        fontWeight = FontWeight.Bold,
-                        fontSize = 13.sp
+                        fontWeight = FontWeight.Black,
+                        fontSize = 15.sp
                     )
                 }
             }

@@ -1,5 +1,6 @@
 package com.example.ui.components
 
+import com.example.model.WHATSAPP_NUMBER
 import android.content.Intent
 import android.net.Uri
 import androidx.compose.animation.core.Animatable
@@ -724,7 +725,7 @@ fun SellCoinsSection(
     val context = LocalContext.current
 
     fun openWhatsApp() {
-        val uri = Uri.parse("https://wa.me/96566838043?text=${Uri.encode("مرحباً متجر برنس فوت، أود بيع كوينز EA FC 27")}")
+        val uri = Uri.parse("https://wa.me/$WHATSAPP_NUMBER?text=${Uri.encode("مرحباً متجر برنس فوت، أود بيع كوينز EA FC 27")}")
         val intent = Intent(Intent.ACTION_VIEW, uri)
         try {
             context.startActivity(intent)

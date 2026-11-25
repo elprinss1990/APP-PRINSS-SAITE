@@ -29,30 +29,7 @@ class MainViewModel : ViewModel() {
     private val _coinsQuantity = MutableStateFlow(1500000L)
     val coinsQuantity: StateFlow<Long> = _coinsQuantity.asStateFlow()
 
-    private val _cartItems = MutableStateFlow<List<CartItem>>(
-        listOf(
-            CartItem(
-                id = "c1",
-                title = "EA FC 27 Coins (PS)",
-                subtitle = "1,500,000 Coins",
-                platform = Platform.PLAYSTATION,
-                coinAmount = 1500000L,
-                quantity = 1,
-                unitPriceEgp = 1920.0,
-                isCoinProduct = true
-            ),
-            CartItem(
-                id = "c2",
-                title = "EA FC 27 Coins (PC)",
-                subtitle = "500,000 Coins",
-                platform = Platform.PC,
-                coinAmount = 500000L,
-                quantity = 1,
-                unitPriceEgp = 640.0,
-                isCoinProduct = true
-            )
-        )
-    )
+    private val _cartItems = MutableStateFlow<List<CartItem>>(emptyList())
     val cartItems: StateFlow<List<CartItem>> = _cartItems.asStateFlow()
 
     private val _promoCode = MutableStateFlow("")
@@ -61,51 +38,7 @@ class MainViewModel : ViewModel() {
     private val _appliedDiscountPercent = MutableStateFlow(0)
     val appliedDiscountPercent: StateFlow<Int> = _appliedDiscountPercent.asStateFlow()
 
-    // Orders list matching Screen 4 of the user's mockup
-    private val _orders = MutableStateFlow<List<OrderItem>>(
-        listOf(
-            OrderItem(
-                id = "o1",
-                orderNumber = "#PF25896",
-                dateText = "12 Sep 2025 - 14:32",
-                title = "EA FC 27 Coins (PS) 1,000,000 Coins",
-                platform = Platform.PLAYSTATION,
-                coinsAmount = 1000000L,
-                totalEgp = 1280.0,
-                status = OrderStatus.COMPLETED
-            ),
-            OrderItem(
-                id = "o2",
-                orderNumber = "#PF25895",
-                dateText = "11 Sep 2025 - 18:20",
-                title = "EA FC 27 Coins (PC) 2,000,000 Coins",
-                platform = Platform.PC,
-                coinsAmount = 2000000L,
-                totalEgp = 2560.0,
-                status = OrderStatus.PROCESSING
-            ),
-            OrderItem(
-                id = "o3",
-                orderNumber = "#PF25894",
-                dateText = "10 Sep 2025 - 12:15",
-                title = "EA FC 27 Coins (PS) 500,000 Coins",
-                platform = Platform.PLAYSTATION,
-                coinsAmount = 500000L,
-                totalEgp = 640.0,
-                status = OrderStatus.COMPLETED
-            ),
-            OrderItem(
-                id = "o4",
-                orderNumber = "#PF25893",
-                dateText = "09 Sep 2025 - 16:10",
-                title = "EA FC 27 Coins (PC) 1,500,000 Coins",
-                platform = Platform.PC,
-                coinsAmount = 1500000L,
-                totalEgp = 1920.0,
-                status = OrderStatus.CANCELLED
-            )
-        )
-    )
+    private val _orders = MutableStateFlow<List<OrderItem>>(emptyList())
     val orders: StateFlow<List<OrderItem>> = _orders.asStateFlow()
 
     private val _searchQuery = MutableStateFlow("")

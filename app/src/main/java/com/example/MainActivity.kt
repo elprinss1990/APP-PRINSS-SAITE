@@ -1,5 +1,6 @@
 package com.example
 
+import com.example.model.WHATSAPP_NUMBER
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -158,7 +159,7 @@ fun PrinssFutApp(viewModel: MainViewModel) {
                             .clip(CircleShape)
                             .background(WhatsAppGreen)
                             .clickable {
-                                val uri = Uri.parse("https://wa.me/96566838043?text=${Uri.encode("مرحباً متجر برنس فوت، أود الاستفسار عن كوينز EA FC 27")}")
+                                val uri = Uri.parse("https://wa.me/$WHATSAPP_NUMBER?text=${Uri.encode("مرحباً متجر برنس فوت، أود الاستفسار عن كوينز EA FC 27")}")
                                 val intent = Intent(Intent.ACTION_VIEW, uri)
                                 try {
                                     context.startActivity(intent)

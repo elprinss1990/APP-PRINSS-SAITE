@@ -1,5 +1,6 @@
 package com.example.ui.screens
 
+import com.example.model.WHATSAPP_NUMBER
 import android.content.Intent
 import android.net.Uri
 import androidx.compose.foundation.background
@@ -412,7 +413,7 @@ fun CartScreen(
                             onClick = {
                                 val summary = cartItems.joinToString("\n") { "• ${it.title} (${it.subtitle}) x${it.quantity} = ${it.totalPriceEgp.toInt()} EGP" }
                                 val msg = "Hello PRINSS FUT! I want to complete my cart order:\n$summary\nTotal: ${numFormat.format(totalEgp.toInt())} EGP"
-                                val url = "https://wa.me/201000000000?text=${Uri.encode(msg)}"
+                                val url = "https://wa.me/$WHATSAPP_NUMBER?text=${Uri.encode(msg)}"
                                 try {
                                     context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(url)))
                                 } catch (e: Exception) {}
